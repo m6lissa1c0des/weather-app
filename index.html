@@ -12,6 +12,12 @@
             <input type="text" placeholder="enter city name" spellcheck="false">
             <button><img src="./images/search.png" alt=""></button>
         </div>
+        
+        <div class="default-message">
+            <h1>Weather App</h1>
+            <p>Enter a city name to get the weather info.</p>
+        </div>
+        
         <div class="weather">
             <img src="./images/rain.png" class="weather-icon">
             <h1 class="temp">22°C</h1>
@@ -46,14 +52,32 @@ const searchBox = document.querySelector(".search input");
 const searchBtn = document.querySelector(".search button");
 const weatherIcon = document.querySelector(".weather-icon");
 
+//clearing the search bar after refrech
+window.onload = function() {
+    searchBox.value = "";
+};
+
+//searching with the enter key and if they don't enter anything
+searchBox.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        if (searchBox.value.trim() === "") {
+            alert("Please enter a city name.");
+            return;
+        }
+        checkWeather(searchBox.value);
+    }
+});
+
+
 async function checkWeather(city) {
     const response = await fetch(apiurl + city + `&appid=${apikey}`);
     if (!response.ok) {
         alert("City not found! Please enter a valid city.");
         return;
     }
+
     var data = await response.json();
-    console.log(data);
+    
     document.querySelector(".city").innerHTML = data.name ;
     document.querySelector(".temp").innerHTML = Math.round(data.main.temp) +"°C";
     document.querySelector(".humidity").innerHTML = data.main.humidity +"%";
@@ -70,6 +94,9 @@ async function checkWeather(city) {
     }else if(data.weather[0].main == "Mist") {
         weatherIcon.src = "images/mist.png"
     }
+
+    document.querySelector(".default-message").style.display = "none";
+    document.querySelector(".weather").style.display ="block";
 }
 
 searchBtn.addEventListener("click" , ()=> {
