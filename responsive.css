@@ -1,0 +1,28 @@
+@media (max-width : 836px) {
+    .search input{
+        padding: 10px 12px;
+        height: 30px;
+        border-radius: 30px;
+    }
+    .search button{
+        width: 30px;
+        height: 30px;
+    }
+    .search button img{
+        width: 8px;
+    }
+}
+@media (max-width : 390px) {
+    .search input{
+        padding: 6px 8px;
+        height: 20px;
+        border-radius: 30px;
+    }
+    .search button{
+        width: 20px;
+        height: 20px;
+    }
+    .search button img{
+        width: 4px;
+    }
+}
